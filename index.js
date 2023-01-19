@@ -1,6 +1,6 @@
 
 function callComicModal(){
-    let seriesModal = bootstrap.Modal.getOrCreateInstance('#comic-series-modal');
+    let seriesModal = document.getElementById('series-list');
     let comic = document.getElementById('searchInp').value;
     fetch(`https://metron.cloud/api/series/?format=json&name=${comic}`,{
         headers: {
@@ -10,16 +10,24 @@ function callComicModal(){
         .then((data) => {
             console.log(data);
             for (const comicSeries of data.results){
-                const listItem = document.createElement('li');
-                listItem.appendChild(document.createElement('strong')
-                ).textContent = comicSeries.series;
-                seriesModal.appendChild(listItem);
+                let comicSeriesItem = `<a href="#" onclick="getComicIssues(${comicSeries.id});return false;" 
+                        data-target="#comic-issue-modal">${comicSeries.series}</a><br>`;
+                seriesModal.innerHTML = seriesModal.innerHTML + comicSeriesItem;
             }
         });
 }
 
 function getComicIssues(id){
     //Pulls a list of issues for the selected series.
+    let comicIssueModal = document.getElementById.apply('issue-list');
+    fetch(`https://metron.cloud/api/series/${id}/issue_list`).then((response)=>response.json())
+        .then((data)=>{
+            console.log(data);
+            for (const issue of data.results){
+                comicIssueItem = `${issue.issue}`;
+                console.log(comicIssueItem);
+            }
+        })
 }
 
 function saveIssue(){
