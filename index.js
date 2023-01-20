@@ -48,8 +48,8 @@ async function saveIssue(id){
         .then((response)=>response.json())
         .then((data)=>{
             console.log(data);
-            comicList.innerHTML += `<div class="container-fluid border border-primary">
-                                        <div class="row">
+            comicList.innerHTML += `<div class="container-fluid border border-primary p-4" id="${data.id}">
+                                        <div class="row text-center">
                                             <div class="col-3 align-self-start"><img src="${data.image}" width="80%" alt=""><br>
                                             <p>${data.series.name}<br>Issue #${data.number}<br>Date: ${data.store_date}</p>
                                             </div>
@@ -58,12 +58,16 @@ async function saveIssue(id){
                                                 <p>${data.desc}</p>
                                             </div>
                                             <div class="col-3">
-                                                <button class="btn btn-primary">Edit</button><br>
-                                                <button class="btn btn-primary">Delete</button>
+                                                <button class="btn btn-primary" onclick="deleteIssue(${data.id})">Delete</button>
                                             </div>
-                                            <div class="col-12 input-group">
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-8 input-group">
                                                 <span class="input-group-text primary-outline">Notes</span>
-                                                 <textarea class="form-control primary-outline" aria-label="Notes"></textarea>
+                                                <textarea class="form-control primary-outline" aria-label="Notes"></textarea>
+                                            </div>
+                                            <div class="col-4">
+                                                <button class="btn btn-primary" onclick="saveNotes()">Save</button>
                                             </div>
                                         </div>
                                     </div>`;
@@ -71,6 +75,12 @@ async function saveIssue(id){
         });
 }
 
-function deleteIssue(){
+function deleteIssue(id){
     //Deletes an issue from the list.
+    console.log(`Deleted Comic with ID of ${id}`);
+    document.getElementById(`${id}`).remove();
+}
+
+function saveNotes(){
+
 }
