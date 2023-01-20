@@ -9,34 +9,23 @@
     <title>Corner Comics</title>
 </head>
 <body>
-    <h1>CornerComics Collection List</h1><br>
+    <img src="img/logo.png" alt="logo" width="150px" height="110px"><h1>Issue Tracker</h1><br>
     <div class="container">
         <div class="input-group input-group-lg">
             <input type="search" class="docsearch-input form-control" placeholder="Search" id="searchInp">
-            <button class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#comic-series-modal" type="button" id="searchBtn" onclick="callComicModal()">Submit</button>
+            <button class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#comic-modal" type="button" id="searchBtn" onclick="callComicModal()">Submit</button>
         </div>
+        <br>
         <div id="comic-list"></div>
     </div>
-    <div class="modal fade" id="comic-series-modal" tabindex="-1" aria-labelledby="series-modal-title" aria-hidden="true">
+    <div class="modal fade" id="comic-modal" tabindex="-1" aria-labelledby="series-modal-title" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centeredd modal-dialog-scrollable">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-tite" id="series-modal-title">Select a Comic Series</h5>
+                    <h5 class="modal-tite" id="comic-modal-title">Select a Comic Series</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <div class="modal-body" id="series-list">
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="modal fade" id="comic-issue-modal" tabindex="-1" aria-labelledby="issue-modal-title" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centeredd modal-dialog-scrollable">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-tite" id="series-modal-title">Select a Comic Series</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body" id="issue-list">
+                <div class="modal-body" id="comic-modal-body">
                 </div>
             </div>
         </div>
