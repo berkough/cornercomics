@@ -1,12 +1,12 @@
-const url = `https://metron.cloud/api`;
+const url = `proxy.php?url=https://metron.cloud/api`;
 let issueBlock = ``;
 let seriesModal = document.getElementById('series-list');
 let seriesModalTitle = document.getElementById('series-modal-title');
 
-function callComicModal(){
+async function callComicModal(){
     //Pulls a list of series based on a search term.
     let comic = document.getElementById('searchInp').value;
-    fetch(`${url}/series/?format=json&name=${comic}`,{
+    await fetch(`${url}/series/?format=json&name=${comic}`,{
     }).then((response) => response.json())
         .then((data) => {
             console.log(data);
@@ -18,10 +18,10 @@ function callComicModal(){
         });
 }
 
-function getComicIssues(id){
+async function getComicIssues(id){
     //Pulls a list of issues for the selected series.
     let comicIssueModal = document.getElementById('issue-list');
-    fetch(`${url}/series/${id}/issue_list`).then((response)=>response.json())
+    await fetch(`${url}/series/${id}/issue_list`).then((response)=>response.json())
         .then((data)=>{
             console.log(data);
             for (const issue of data.results){
