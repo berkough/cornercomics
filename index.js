@@ -3,7 +3,9 @@
  */
 
 //Global Variables.
-const URL = `https://metron.cloud/api`; //API url
+//const URL = `https://metron.cloud/api`; // <-- Use this if websecurity is disabled in Chrome.
+const URL = `proxy.php?url=https://metron.cloud/api`; //<-- Use this if you're ENVs are set.
+
 
 const comicModalBody = document.getElementById('comic-modal-body');
 const comicModalBodyTitle = document.getElementById('comic-modal-title');
@@ -88,14 +90,14 @@ function deleteIssue(id){
 
 function saveNotes(id){
     let noteField = document.getElementById(`notes${id}`); //Grab the value of the text area and post it.
-    let savedNote = noteField.value;
-    noteField.remove();
-    document.getElementById(`noteDiv${id}`).innerHTML = `<p>${savedNote}</p>`;
+    let savedNote = noteField.value; //Save the value of the notefield.
+    noteField.remove(); //Remove the note field...
+    document.getElementById(`noteDiv${id}`).innerHTML = `<p>${savedNote}</p>`; //Populate the note field 
 }
 
-function editNotes(){
-    //Button for editing notes again?
-}
+// function editNotes(){
+//     //Button for editing notes again?
+// }
 
 function saveList(){
     //Save Entire Comic List for later.

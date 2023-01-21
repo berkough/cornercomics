@@ -1,7 +1,9 @@
 <?php
-// This script written by Josf Ottosson, https://github.com/joseftw/php-rest-proxy
+// This script written by Josef Ottosson, https://github.com/joseftw/php-rest-proxy
 
   $url = $_REQUEST["url"];
+  $usr = getenv('METRON_USER');
+  $pass = getenv('METRON_PASS');
 
   if(!$url) {
     echo "You need to pass in a target URL.";
@@ -85,7 +87,8 @@
 
   function initCurl($url) {
     $httpHeader = array(
-    'Content-Type: application/x-www-form-urlencoded');
+    'Content-Type: application/x-www-form-urlencoded',
+    'Authorization: Basic '. base64_encode($usr . ':' . $pass));
 
     $ch = curl_init($url);
     curl_setopt($ch, CURLOPT_HTTPHEADER, $httpHeader);
