@@ -9,6 +9,9 @@ const comicModalBody = document.getElementById('comic-modal-body');
 const comicModalBodyTitle = document.getElementById('comic-modal-title');
 const comicList = document.getElementById('comic-list');
 
+//Check localstorage to see if there is already a list saved.
+
+
 //Start the functions.
 async function callComicModal(){
     //Pulls a list of series based on a search term.
@@ -62,12 +65,12 @@ async function saveIssue(id){
                                             </div>
                                         </div>
                                         <div class="row">
-                                            <div class="col-8 input-group">
+                                            <div class="col-8 input-group" id="noteDiv${data.id}">
                                                 <span class="input-group-text primary-outline">Notes</span>
-                                                <textarea class="form-control primary-outline" aria-label="Notes"></textarea>
+                                                <textarea class="form-control primary-outline" aria-label="Notes" id="notes${data.id}"></textarea>
                                             </div>
-                                            <div class="col-4">
-                                                <button class="btn btn-primary" onclick="saveNotes()">Save</button>
+                                            <div class="col-4" id="btnDiv${data.id}">
+                                                <button class="btn btn-primary" onclick="saveNotes(${data.id})">Save</button>
                                             </div>
                                         </div>
                                     </div>`;
@@ -81,6 +84,20 @@ function deleteIssue(id){
     document.getElementById(`${id}`).remove();
 }
 
-function saveNotes(){
+function saveNotes(id){
+    let noteField = document.getElementById(`notes${id}`);
+    let saved
 
+    noteField.remove();
+
+
+}
+
+function saveList(){
+    //Save Entire Comic List for later.
+    localStorage.setItem('list',document.getElementById('comic-list'));
+}
+
+function clearList(){
+    //Clear the list from localStorage and div.
 }
