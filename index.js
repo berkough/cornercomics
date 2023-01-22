@@ -13,32 +13,6 @@ const comicList = document.getElementById('comic-list');
 //Check localstorage to see if there is already a list saved.
 localStorage.getItem('list') ? comicList.innerHTML = localStorage.getItem('list') : console.log('No list in storage!');
 
-//Comic Added to list alert:
-const alertPlaceholder = document.getElementById('addalert')
-
-const alert = (message, type) => {
-  const wrapper = document.createElement('div');
-  wrapper.innerHTML = [
-    `<div class="alert alert-${type} alert-dismissible" role="alert">`,
-    `   <div>${message}</div>`,
-    '   <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>',
-    '</div>'
-  ].join('');
-
-  alertPlaceholder.append(wrapper);
-}
-
-const alertTrigger = document.querySelectorAll('.comic-add').forEach((comicIssueLink)=>{
-    comicIssueLink.addEventListener('click', ()=>{
-        alert('Comic added to list.','success');
-    })
-});
-// if (alertTrigger) {
-//   alertTrigger.addEventListener('click', () => {
-//     alert('Comic Added to List', 'success')
-//   })
-// }
-
 
 //Start your functions!
 async function callComicModal(){
