@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-bs-theme="dark">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -9,8 +9,11 @@
     <title>Corner Comics</title>
 </head>
 <body>
-    <img src="img/logo.png" alt="logo" width="150px" height="110px"><h1>Issue Tracker</h1><br>
+    <div class="text-center"><img src="img/logo.png" alt="logo" width="150px" height="110px"><h1>Issue Tracker</h1></div><br>
     <div class="container">
+            <button class="btn btn-primary" onclick="saveList()">Save Entire List</button>
+            <button class="btn btn-primary" onclick="clearList()">Clear Entire List</button>
+            <br><br>
         <div class="input-group input-group-lg">
             <input type="search" class="docsearch-input form-control" placeholder="Search" id="searchInp">
             <button class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#comic-modal" type="button" id="searchBtn" onclick="callComicModal()">Submit</button>
