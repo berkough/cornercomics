@@ -17,8 +17,8 @@
         curl_setopt_array($ch, $options);
         curl_setopt($ch, CURLOPT_HTTPHEADER, array(
           "Content Type: application/json",
-          "Authentication: Basic ". base64_encode(getenv('METRON_USER' . ':' . getenv('METRON_PASS'))),
-        ));
+          "Authentication: Basic ". base64_encode(getenv('METRON_USER') . ':' . getenv('METRON_PASS')))
+        );
         $remoteSite = curl_exec($ch);
         $header = curl_getinfo($ch);
         curl_close($ch);
