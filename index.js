@@ -3,9 +3,8 @@
  */
 
 //Global Variables.
-//const URL = `https://metron.cloud/api`; // <-- Use this if websecurity is disabled in Chrome.
-const URL = `proxy.php?url=https://metron.cloud/api`; //<-- Use this if you're ENVs are set.
-
+const URL = `https://metron.cloud/api`; // <-- Use this if websecurity is disabled in Chrome.
+//const URL = `proxy.php?url=https://metron.cloud/api`; //<-- Use this if you're ENVs are set.
 
 const comicModalBody = document.getElementById('comic-modal-body');
 const comicModalBodyTitle = document.getElementById('comic-modal-title');
@@ -14,7 +13,34 @@ const comicList = document.getElementById('comic-list');
 //Check localstorage to see if there is already a list saved.
 localStorage.getItem('list') ? comicList.innerHTML = localStorage.getItem('list') : console.log('No list in storage!');
 
-//Start the functions.
+//Comic Added to list alert:
+const alertPlaceholder = document.getElementById('addalert')
+
+const alert = (message, type) => {
+  const wrapper = document.createElement('div');
+  wrapper.innerHTML = [
+    `<div class="alert alert-${type} alert-dismissible" role="alert">`,
+    `   <div>${message}</div>`,
+    '   <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>',
+    '</div>'
+  ].join('');
+
+  alertPlaceholder.append(wrapper);
+}
+
+const alertTrigger = document.querySelectorAll('.comic-add').forEach((comicIssueLink)=>{
+    comicIssueLink.addEventListener('click', ()=>{
+        alert('Comic added to list.','success');
+    })
+});
+// if (alertTrigger) {
+//   alertTrigger.addEventListener('click', () => {
+//     alert('Comic Added to List', 'success')
+//   })
+// }
+
+
+//Start your functions!
 async function callComicModal(){
     //Pulls a list of series based on a search term.
     let comic = document.getElementById('searchInp').value; //Grab the value in the search box.
@@ -41,7 +67,7 @@ async function getComicIssues(id){
             console.log(data);
             //Generate a bunch of links to add specific comic issues to our list.
             for (const comicIssue of data.results){
-                let comicIssueItem = `<a href="#" onclick="saveIssue(${comicIssue.id});return false;">${comicIssue.issue}</a><br>`;
+                let comicIssueItem = `<a href="#" onclick="saveIssue(${comicIssue.id});return false;" class="comic-add">${comicIssue.issue}</a><br>`;
                 comicModalBodyTitle.innerHTML = 'Pick an issue to add to your list:';
                 comicModalBody.innerHTML += comicIssueItem;
             }
@@ -73,7 +99,7 @@ async function saveIssue(id){
                                                 <textarea class="form-control primary-outline" aria-label="Notes" id="notes${data.id}"></textarea>
                                             </div>
                                             <div class="col-4" id="btnDiv${data.id}">
-                                                <button class="btn btn-primary" onclick="saveNotes(${data.id})">Save</button>
+                                                <button class="btn btn-primary" onclick="saveNotes(${data.id})" id="saveBtn${data.id}">Save</button>
                                             </div>
                                         </div>
                                     </div>`;
@@ -90,14 +116,24 @@ function deleteIssue(id){
 
 function saveNotes(id){
     let noteField = document.getElementById(`notes${id}`); //Grab the value of the text area and post it.
-    let savedNote = noteField.value; //Save the value of the notefield.
+    let savedNote = noteField.value;
+    localStorage.setItem(`note${id}`,savedNote); //Save the value of the notefield.
     noteField.remove(); //Remove the note field...
-    document.getElementById(`noteDiv${id}`).innerHTML = `<p>${savedNote}</p>`; //Populate the note field 
+    document.getElementById(`noteDiv${id}`).innerHTML = `<p>${savedNote}</p>`; //Populate the note field
+    document.getElementById(`saveBtn${id}`).remove(); //Ditch the Save Button.
+    document.getElementById(`btnDiv${id}`).innerHTML = `<button class="btn btn-primary" onclick="editNotes(${id})" id="editBtn${id}">Edit</button>`;
+
+
 }
 
-// function editNotes(){
-//     //Button for editing notes again?
-// }
+function editNotes(id){
+    //Button for editing notes again.
+    document.getElementById(`noteDiv${id}`).innerHTML = `<span class="input-group-text primary-outline">Notes</span>
+                                                         <textarea class="form-control primary-outline" aria-label="Notes" id="notes${id}"></textarea>`;
+    document.getElementById(`notes${id}`).value = localStorage.getItem(`note${id}`);
+    document.getElementById(`editBtn${id}`).remove();
+    document.getElementById(`btnDiv${id}`).innerHTML = `<button class="btn btn-primary" onclick="saveNotes(${id})" id="saveBtn${id}">Save</button>`;
+}
 
 function saveList(){
     //Save Entire Comic List for later.
